@@ -23,7 +23,7 @@ let user=await User.findOne({email});
 
  user=await User.create({name,email,password:hashedPassword});
 
-return NextResponse.json({message: "Successfully registered",user},{status: 200});
+return NextResponse.json({message: "Successfully registered",user},{status: 201});
     } catch (err) {
 return NextResponse.json({message: "Failed to register"}, {status: 500});
     }

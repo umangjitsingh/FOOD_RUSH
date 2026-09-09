@@ -1,11 +1,14 @@
 "use client";
 import { ArrowRight, Clock3,  Search, ShoppingBag, Sparkles, Star } from 'lucide-react'
-import { useState } from 'react'
+import { useState } from 'react';
+import Image from 'next/image';
+import {useRouter} from "next/navigation";
 
 const categories = ['All cravings', 'Bowls', 'Burgers', 'Pizza', 'Desserts']
 
 function Welcome({ whatStep }: { whatStep: (step: number) => void }) {
-    const [activeCategory, setActiveCategory] = useState('All cravings')
+    const [activeCategory, setActiveCategory] = useState('All cravings');
+    const router=useRouter();
 
     return (
         <main className=" overflow-hidden bg-background text-foreground">
@@ -37,7 +40,7 @@ function Welcome({ whatStep }: { whatStep: (step: number) => void }) {
                     </nav>
 
                     <div className="flex items-center gap-2 sm:gap-3">
-                        <button className="hidden rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:block">
+                        <button className="hidden rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground sm:block" onClick={()=>router.push('/login')}>
                             Log in
                         </button>
                         <button className="flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2.5 text-sm font-semibold shadow-sm transition-transform hover:-translate-y-0.5">
@@ -84,7 +87,7 @@ function Welcome({ whatStep }: { whatStep: (step: number) => void }) {
                             <div className="absolute -inset-8 rounded-[48px] bg-primary/10 blur-3xl" />
                             <div className="relative overflow-hidden rounded-[34px] border border-border/80 bg-card p-3 shadow-2xl shadow-black/30 sm:p-4">
                                 <div className="relative aspect-[0.94] overflow-hidden rounded-[25px] bg-muted">
-                                    <img src="/hero-food.png" alt="A warm bowl of spicy ramen with egg and herbs" className="absolute inset-0 size-full object-cover" />
+                                    <Image src="/hero-food.png" alt="A warm bowl of spicy ramen with egg and herbs" width={500} height={500}  className="absolute inset-0 size-full object-cover"  priority/>
                                     <div className="absolute inset-0 bg-linear-to-t from-black/75 via-transparent to-black/5" />
 
                                     <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full border border-white/15 bg-black/35 px-3 py-2 text-xs font-medium text-white backdrop-blur-md">

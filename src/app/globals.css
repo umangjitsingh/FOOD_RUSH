@@ -33,7 +33,6 @@
 
 :root { color-scheme: dark; --background: oklch(0.12 0.018 70); --foreground: oklch(0.96 0.02 75); --card: oklch(0.17 0.02 68); --card-foreground: oklch(0.96 0.02 75); --popover: oklch(0.17 0.02 68); --popover-foreground: oklch(0.96 0.02 75); --primary: oklch(0.76 0.16 67); --primary-foreground: oklch(0.16 0.025 55); --secondary: oklch(0.22 0.025 68); --secondary-foreground: oklch(0.96 0.02 75); --muted: oklch(0.22 0.025 68); --muted-foreground: oklch(0.69 0.025 70); --accent: oklch(0.23 0.045 68); --accent-foreground: oklch(0.96 0.02 75); --border: oklch(1 0 0 / 11%); --input: oklch(1 0 0 / 15%); --ring: oklch(0.76 0.16 67); --radius: 0.85rem; }
 
-* { @apply border-border outline-ring/50; }
 html { background: var(--background); scroll-behavior: smooth; }
 body { @apply bg-background text-foreground font-sans antialiased; }
 button, a { -webkit-tap-highlight-color: transparent; }

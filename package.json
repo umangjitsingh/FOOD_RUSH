@@ -10,8 +10,12 @@
     "format": "biome format --write"
   },
   "dependencies": {
+    "@iconify-react/streamline-color": "^1.0.2",
+    "@types/axios": "^0.9.36",
     "@types/bcrypt": "^6.0.0",
+    "axios": "^1.20.0",
     "bcrypt": "^6.0.0",
+    "clsx": "^2.1.1",
     "lucide-react": "^1.41.0",
     "mongoose": "^9.9.4",
     "next": "16.3.4",

@@ -1,7 +1,9 @@
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import User from "@/app/(BACK)/models/user.model"
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
+import Google from "next-auth/providers/google";
+import connectDb from "@/app/(BACK)/config/db";
 
 
 export const {handlers, signIn, signOut, auth} = NextAuth({
@@ -33,8 +35,34 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
                 }
             },
         }),
+        Google({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        }),
     ],
     callbacks: {
+        async signIn({user, account, profile}) {
+            if (account?.provider === "google") {
+                try {
+                    await connectDb();
+                    let dbUser = await User.findOne({email: user?.email});
+                    if (!dbUser) {
+                        dbUser = await User.create({
+                            name: user?.name,
+                            email: user?.email,
+                            image: user?.image,
+                            password: "" // Google users don't have passwords
+                        })
+                    }
+                    user.id = dbUser._id.toString();
+                    user.role = dbUser.role;
+                } catch (error) {
+                    console.error("Error in Google signIn callback:", error);
+                    return false;
+                }
+            }
+            return true;
+        },
         async jwt({token, user}) {
             if (user) {
                 token.id = user.id;
@@ -52,7 +80,8 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
                 session.user.role = token.role as string;
             }
             return session;
-        }
+        },
+
     },
     pages: {
         signIn: '/auth/signin'

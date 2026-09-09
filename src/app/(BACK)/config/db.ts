@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 const mongoDb_url=process.env.MONGODB_URL;
-console.log(mongoDb_url);
 if(!mongoDb_url){
     throw new Error("MongoDB is missing");
 }
