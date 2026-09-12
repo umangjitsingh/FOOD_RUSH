@@ -2,6 +2,8 @@
 import React, {JSX, useState} from 'react';
 import {UserShield, Bike, User, ArrowRight} from "lucide-react";
 import clsx from "clsx";
+import axios from "axios";
+
 
 interface Role {
     value: string;
@@ -21,14 +23,17 @@ function EditRoleMobile() {
     const handleEdit =async (e: React.MouseEvent) => {
         e.preventDefault();
         try{
-            const response=await axios.post("/api/user/edit", {role: selectedRole, mobile: mobile});
+            const response=await axios.post("/api/user/edit-role-mobile", {role: selectedRole, mobile: mobile});
+            console.log(response.data);
+            window.location.href = "/";
+
         }catch(e){
             console.log(e)
         }
     };
 
     return (
-        <div className="overflow-hidden bg-background text-foreground w-full min-h-screen">k
+        <div className="overflow-hidden bg-background text-foreground w-full min-h-screen">
             <section className="relative mx-auto max-w-360 px-5 py-5 sm:px-8 lg:px-12 scroll-mt-20">
                 {/* Background blobs */}
                 <div
@@ -48,7 +53,7 @@ function EditRoleMobile() {
                                 </p>
                             </div>
 
-                            <div className="w-full flex flex-col items-center pt-12 px-20">
+                            <div className="w-full flex flex-col items-center pt-12 px-0 sm:px-20">
                                 <div className="flex gap-2 items-center p-2 justify-center w-full ">
                                     {ROLES.map((r:Role)=>{
                                         return <div key={r.value} className={clsx("flex flex-col items-center justify-center bg-foreground/10 border border-primary/60 text-primary/60 rounded-lg  cursor-pointer  h-34 w-34",
