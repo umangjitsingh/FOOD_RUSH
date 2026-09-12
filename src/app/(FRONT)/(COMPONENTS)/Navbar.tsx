@@ -1,64 +1,62 @@
-"use client"
-import React from 'react';
-import {Search, ShoppingBag, Sparkles} from "lucide-react";
-import {useRouter} from "next/navigation";
+
+'use client'
+
+import { Search, ShoppingBag, Sparkles, ChevronDown } from 'lucide-react'
+import { useState } from 'react'
 import {IUser} from "@/app/(BACK)/models/user.model";
+import Image from 'next/image';
 
-function Navbar({user}: { user: IUser }) {
 
-    const router = useRouter();
-    console.log("user--->",user)
+
+
+export function Navbar({ user }: { user: IUser }) {
+    const [query, setQuery] = useState('')
+    const [modalOpen, setModalOpen] = useState(false)
+
     return (
-
-        <main className=" overflow-hidden bg-background text-foreground">
-
-            {/* REAL TOP ANCHOR */}
-
-            <section className="relative mx-auto max-w-360 px-5 py-5 sm:px-8 lg:px-12 scroll-mt-20">
-
-
-                {/* Background blobs */}
-                <div
-                    className="pointer-events-none absolute -right-40 top-8 h-120 w-lg rounded-full bg-primary/10 blur-[130px]"/>
-                <div
-                    className="pointer-events-none absolute bottom-56 left-0 h-120 w-120 rounded-full bg-primary/5 blur-[110px]"/>
-
-                {/* Header */}
-                <header id="top"
-                        className="sticky top-0 z-50 backdrop-blur-md bg-background/80 flex items-center justify-between border-b border-border/70 pt-5 pb-5 px-5 sm:px-8 lg:px-12 ">
-                    <a href="#top" className="flex items-center gap-3" aria-label="Savor home">
-                        <span
-                            className="grid size-10 place-items-center rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/15">
-                            <Sparkles size={19} strokeWidth={2.4}/>
-                        </span>
-                        <span className="font-serif text-xl font-bold tracking-tight">
-                            savor<span className="text-primary">.</span>
-                        </span>
-                    </a>
-
-                    <form className=" w-full max-w-xs sm:max-w-md relative ">
-                        <Search  className="text-primary/80 w-5 h-5 absolute top-1/2 -translate-y-1/2 left-4 "/>
-                        <input type="text" placeholder="Search"
-                               className="cursor-pointer w-full px-10 rounded-2xl py-2 placeholder:text-primary/80 border border-primary/10 focus:outline-none text-primary/80 bg-foreground/4"/>
-
-                    </form>
+        <header className="sticky top-0 z-50 border-b border-border/70 bg-background/85 backdrop-blur-xl">
+            <div className="mx-auto flex h-20 max-w-7xl items-center gap-4 px-5 sm:px-8 lg:px-10">
+                <a href="#top" className="group flex shrink-0 items-center gap-3" aria-label="Savor home">
+          <span className="grid size-10 place-items-center rounded-xl bg-primary text-primary-foreground shadow-[0_8px_20px_-8px_var(--primary)] transition-transform duration-200 group-hover:-rotate-6">
+            <Sparkles size={18} strokeWidth={2.5} aria-hidden="true" />
+          </span>
+                    <span className="font-serif text-[1.35rem] font-bold tracking-[-0.04em]">
+            savor<span className="text-primary">.</span>
+          </span>
+                </a>
 
 
-                    <div className="flex items-center gap-2 sm:gap-3 ">
 
-                        <div className="flex items-center justify-center bg-teal-800 rounded-full w-10 h-10 hover:bg-teal-700 transition-all cursor-pointer hover:scale-105">
-                            <p className="text-sm font-medium text-primary">{user.name.slice(0,1).toUpperCase()}</p>
-                        </div>
+                <form className="relative mx-auto hidden w-full max-w-md md:block" role="search" onSubmit={(event) => event.preventDefault()}>
+                    <Search className="pointer-events-none absolute left-4 top-1/2 size-4.5 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
+                    <label className="sr-only" htmlFor="site-search">Search recipes</label>
+                    <input
+                        id="site-search"
+                        value={query}
+                        onChange={(event) => setQuery(event.target.value)}
+                        type="search"
+                        placeholder="Search recipes, ingredients..."
+                        className="h-11 w-full rounded-full border border-border bg-muted/45 pl-11 pr-4 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/80 focus:border-primary/50 focus:bg-background focus:ring-4 focus:ring-primary/10"
+                    />
+                    <kbd className="pointer-events-none absolute right-3 top-1/2 hidden -translate-y-1/2 rounded-md border border-border bg-background px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground xl:block">⌘ K</kbd>
+                </form>
 
-                        <button
-                            className="flex items-center gap-2 rounded-full border border-border bg-card px-4 py-2.5 text-sm font-semibold shadow-sm transition-transform hover:-translate-y-0.5">
-                            <ShoppingBag size={16}/> <span className="hidden sm:inline">Your bag</span>
-                        </button>
-                    </div>
-                </header>
-            </section>
-        </main>
-    );
+                <div className="ml-auto flex items-center gap-2 sm:gap-3 " onClick={() => setModalOpen(true)}>
+
+
+                    <button className="group flex items-center gap-2 rounded-full border border-border bg-card py-1.5 pl-1.5 pr-3 text-left transition-all hover:border-primary/30 hover:shadow-sm" aria-label="Open profile menu">
+                        {user.image ? <Image src={user?.image} width={32} height={32} className="grid size-8 place-items-center rounded-full" alt="" /> : <span className="grid size-8 place-items-center rounded-full bg-accent text-sm font-bold text-accent-foreground">{user.name.slice(0, 1).toUpperCase()}</span> }
+                        <span className="hidden text-sm font-semibold sm:block">{   user.name.length > 14 ? user.name.slice(0, 14) + '...' : user.name }</span>
+                        <ChevronDown className="hidden size-4 text-muted-foreground sm:block" aria-hidden="true" />
+                    </button>
+                    <button className="relative flex size-11 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-[0_8px_20px_-8px_var(--primary)] transition-transform hover:-translate-y-0.5" aria-label="Open your bag">
+                        <ShoppingBag size={18} strokeWidth={2.2} aria-hidden="true" />
+                        <span className="absolute -right-0.5 -top-0.5 grid size-4 place-items-center rounded-full bg-accent text-[10px] font-bold text-accent-foreground ring-2 ring-background">2</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+    )
 }
 
-export default Navbar;
+export default Navbar
