@@ -14,36 +14,39 @@ const slides = [
     {
         id: 1,
         icon: <LeafyGreen className="w-12 h-12  text-green-500 bg-black/20" />,
-        badge: "Farm to Door",
+        badge: "Chef's Kitchen to Door",
         tagline1: "Good food",
         tagline2: "finds you.",
-        subtitle: "Farm-fresh, locally-sourced groceries delivered to your doorstep — straight from the people who grow them.",
+        subtitle: "From fresh ingredients to your doorstep, we ensure every meal is prepared with care and quality.",
         buttonText: "Shop Now",
         accent: "text-green-500",
-        image: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200&auto=format&fit=crop",
+        accentBg: "bg-green-500",
+        image: "https://images.unsplash.com/photo-1662192513841-c890cc6ff3f9?q=80&w=776&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
     {
         id: 2,
-        icon: <Drone className="w-12 h-12  text-blue-400 bg-black/20" />,
+        icon: <Drone className="w-12 h-12  text-red-600 bg-black/20" />,
         badge: "30-min Delivery",
         tagline1: "Order now,",
         tagline2: "eat soon.",
         subtitle: "Hot, fresh, and on time — every order is tracked in real time and delivered to your door in under 30 minutes.",
         buttonText: "Order Now",
-        accent: "text-blue-400",
-        image: "https://images.unsplash.com/photo-1584799580661-53b7c6b99430?q=80&w=1160&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        accent: "text-red-600",
+        accentBg: "bg-red-600",
+        image: "https://images.unsplash.com/photo-1659367736714-e3f0344a6266?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         badge2: "24/7",
     },
     {
         id: 3,
-        icon: <ShieldCheck className="w-12 h-12  text-purple-600 bg-black/20" />,
+        icon: <ShieldCheck className="w-12 h-12  text-mist-500 bg-black/20" />,
         badge: "Quality Checked",
         tagline1: "Great quality,",
         tagline2: "guaranteed.",
-        subtitle: "Every product is inspected, hygienically packed, and sealed before it leaves our hands — so you can shop with confidence.",
+        subtitle: "Every meal is inspected, hygienically packed, and sealed before it leaves our hands — so you can relish with confidence.",
         buttonText: "Get Started",
-        accent: "text-purple-400",
-        image: "https://images.unsplash.com/photo-1700937192759-2a86c88128cc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTU4fHxiZXN0JTIwZm9vZHxlbnwwfHwwfHx8MA%3D%3D",
+        accent: "text-mist-400",
+        accentBg: "bg-mist-400",
+        image: "https://images.unsplash.com/photo-1553395266-51c63ddf3d8e?q=80&w=1064&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     },
 ];
 
@@ -80,11 +83,11 @@ function HeroSection() {
 
                 {/* Badge */}
                 <div className={`flex items-center gap-2 transition-opacity duration-300 ${animating ? 'opacity-0' : 'opacity-100'}`}>
-                    <span className="h-2 w-2 rounded-full bg-yellow-400 shadow-[0_0_6px_2px_rgba(250,204,21,0.5)]" />
+                    <span className={`h-2 w-2 rounded-full  shadow-[0_0_6px_2px_rgba(250,204,21,0.5)] ${slide.accentBg}`} />
                     <span className={`text-xs font-semibold tracking-wide uppercase ${slide.accent}`}>
                         {slide.badge}
                         {slide.badge2 && (
-                            <span className="ml-2 inline-block text-[10px] px-2 py-0.5 bg-white/10 rounded-md animate-pulse">
+                            <span className="ml-2 inline-block text-[10px] px-2 py-0.5 bg-white/10 text-amber-400 rounded-md animate-pulse">
                                 {slide.badge2}
                             </span>
                         )}
@@ -141,11 +144,12 @@ function HeroSection() {
                     src={slide.image}
                     alt={slide.tagline1}
                     fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     priority
                     className={`object-cover transition-all duration-700 ${animating ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
                 />
                 {/* left-to-right fade so image blends into left panel */}
-                <div className="absolute inset-0 bg-linear-to-r from-background via-background/10 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-r from-background via-background/20 to-transparent" />
 
                 {/* slide icon floating on image */}
                 <div className={`absolute bottom-8 right-8 p-4 bg-background/20 backdrop-blur-sm rounded-2xl border border-white/10 transition-all duration-300 ${animating ? 'opacity-0 scale-90' : 'opacity-100 scale-100'}`}>
