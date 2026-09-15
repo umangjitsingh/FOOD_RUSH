@@ -18,7 +18,7 @@ const userSchema= new mongoose.Schema<IUser>({
     image:{type:String},
     mobile:{type:String},
     role:{type:String,
-        enum:["user","delivery_boy"],
+        enum:["user","delivery_boy","admin"],
         default:"user"},
 },{timestamps:true});
 

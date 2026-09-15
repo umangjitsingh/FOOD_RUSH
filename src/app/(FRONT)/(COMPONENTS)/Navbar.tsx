@@ -54,7 +54,7 @@ export function Navbar({user}: { user: IUser }) {
                         onChange={(event) => setQuery(event.target.value)}
                         type="search"
                         placeholder="Search recipes, ingredients..."
-                        className="h-11 w-full rounded-full border border-border bg-muted/45 pl-11 pr-4 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/80 focus:border-primary/50 focus:bg-background focus:ring-4 focus:ring-primary/10"
+                        className="h-11 w-3/4 lg:w-full rounded-full border border-border bg-muted/45 pl-11 pr-4 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/80 focus:border-primary/50 focus:bg-background focus:ring-4 focus:ring-primary/10"
                     />
                     <kbd className="pointer-events-none absolute right-3 top-1/2 hidden -translate-y-1/2 rounded-md border border-border bg-background px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground xl:block">
                         ⌘ K
@@ -108,13 +108,12 @@ export function Navbar({user}: { user: IUser }) {
 
 
                     <button
-                        className="group flex items-center gap-2 rounded-full border border-border bg-card py-1.5 pl-1.5 pr-3 text-left transition-all hover:border-primary/30 hover:shadow-sm"
+                        className="group flex items-center gap-2  rounded-full border border-border bg-card py-1.5 pl-1.5 pr-3 text-left transition-all hover:border-primary/30 hover:shadow-sm"
                         aria-label="Open profile menu">
                         {user.image ? <Image src={user?.image} width={32} height={32}
                                              className="grid size-8 place-items-center rounded-full" alt=""/> : <span
                             className="grid size-8 place-items-center rounded-full bg-accent text-sm font-bold text-accent-foreground">{user.name.slice(0, 1).toUpperCase()}</span>}
-                        <span
-                            className="hidden text-sm font-semibold sm:block">{user.name.length > 14 ? user.name.slice(0, 14) + '...' : user.name}</span>
+                        <span className="hidden text-sm font-medium sm:block min-w-40  ">{user.name.length > 24 ? user.name.slice(0, 24) + '...' : user.name}</span>
                         <ChevronDown className="hidden size-4 text-muted-foreground sm:block" aria-hidden="true"/>
                     </button>
                     <button
@@ -150,7 +149,7 @@ const Modal = ({isOpen, user,setModalOpen}: { isOpen: boolean, user: IUser, setM
                                          className="size-10 rounded-full border-2 border-border/50 shadow-sm" alt=""/> : <span
                         className="size-10 flex items-center justify-center rounded-full bg-linear-to-br from-primary/20 to-primary/5 text-sm font-bold text-primary border-2 border-border/50 shadow-sm">{user.name.slice(0, 1).toUpperCase()}</span>}
                     <div className="flex flex-col">
-                        <span className="text-sm font-semibold text-foreground">{user.name.length > 22 ? user.name.slice(0, 22) + '...' : user.name}</span>
+                        <span className="text-sm font-semibold text-foreground">{user.name.length > 16 ? user.name.slice(0, 16) + '...' : user.name}</span>
                         <span className="text-xs text-muted-foreground">Welcome back</span>
                     </div>
                 </div>
