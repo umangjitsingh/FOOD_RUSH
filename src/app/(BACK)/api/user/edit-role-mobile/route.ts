@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
         const session = await auth();
         const {role, mobile} = await req.json();
 
-        const user = await User.findOneAndUpdate({email: session?.user?.email as string}, {role, mobile}, {new: true});
+        const user = await User.findOneAndUpdate({email: session?.user?.email as string}, {role, mobile}, {returnDocument: 'after'});
         if (!user) {
             return new Response("User not found", {status: 404});
         }

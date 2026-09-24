@@ -17,6 +17,16 @@ export async function proxy(req:NextRequest) {
         loginUrl.searchParams.set("callbackUrl",req.url);
         return NextResponse.redirect(loginUrl);
     }
+
+if(pathname.startsWith("/admin") && token.role !== "admin"){
+return NextResponse.redirect(new URL("/unauthorized",req.url));
+}
+if(pathname.startsWith("/user") && token.role !== "user"){
+return NextResponse.redirect(new URL("/unauthorized",req.url));
+}
+if(pathname.startsWith("/delivery-boy") && token.role !== "delivery_boy"){
+        return NextResponse.redirect(new URL("/unauthorized",req.url));
+    }
 return NextResponse.next();
 
 }

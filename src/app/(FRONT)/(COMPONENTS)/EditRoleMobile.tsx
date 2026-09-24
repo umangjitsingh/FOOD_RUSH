@@ -3,6 +3,8 @@ import React, {JSX, useState} from 'react';
 import {UserShield, Bike, User, ArrowRight} from "lucide-react";
 import clsx from "clsx";
 import axios from "axios";
+import {useSession} from "next-auth/react";
+
 
 
 interface Role {
@@ -19,12 +21,14 @@ const ROLES: Role[] = [
 function EditRoleMobile() {
     const [selectedRole, setSelectedRole] = useState<string | null>(null);
     const [mobile, setMobile] = useState("");
+    const{update}=useSession();
 
     const handleEdit =async (e: React.MouseEvent) => {
         e.preventDefault();
         try{
             const response=await axios.post("/api/user/edit-role-mobile", {role: selectedRole, mobile: mobile});
             console.log(response.data);
+            await update({role:selectedRole})
             window.location.href = "/";
 
         }catch(e){

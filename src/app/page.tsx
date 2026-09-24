@@ -3,7 +3,7 @@ import User from "@/app/(BACK)/models/user.model";
 import {auth} from "@/auth";
 import {redirect} from "next/navigation";
 import EditRoleMobile from "@/app/(FRONT)/(COMPONENTS)/EditRoleMobile";
-import Navbar from "@/app/(FRONT)/(COMPONENTS)/Navbar";
+import Navbar from "@/app/(FRONT)/(COMPONENTS)/navbar/Navbar";
 import UserDash from "@/app/(FRONT)/(COMPONENTS)/dashboards/UserDash";
 import AdminDash from "@/app/(FRONT)/(COMPONENTS)/dashboards/AdminDash";
 import DeliveryBoyDash from "@/app/(FRONT)/(COMPONENTS)/dashboards/DeliveryboyDash";

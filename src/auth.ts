@@ -7,6 +7,7 @@ import connectDb from "@/app/(BACK)/config/db";
 
 
 export const {handlers, signIn, signOut, auth} = NextAuth({
+    trustHost: true,
     providers: [
         Credentials({
 
@@ -63,11 +64,14 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
             }
             return true;
         },
-        async jwt({token, user}) {
+        async jwt({token, user,trigger}) {
             if (user) {
                 token.id = user.id;
                 token.name = user.name;
                 token.email = user.email;
+                token.role = user.role;
+            }
+            if(trigger === "update") {
                 token.role = user.role;
             }
             return token;
@@ -91,4 +95,5 @@ export const {handlers, signIn, signOut, auth} = NextAuth({
         maxAge: 47 * 24 * 60 * 60,
     },
     secret: process.env.NEXT_AUTH_SECRET,
+    debug: process.env.NODE_ENV === "development",
 })
