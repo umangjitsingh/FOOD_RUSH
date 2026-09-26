@@ -142,7 +142,7 @@ export default function CategorySlider() {
 
     return (
         <motion.div
-            className="mx-auto w-[96%] max-w-7xl py-14 lg:max-w-[1400px]"
+            className="mx-auto w-[96%] max-w-7xl py-14 lg:max-w-350"
             initial={{ opacity: 0, y: 32 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55 }}
