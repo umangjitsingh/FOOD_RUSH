@@ -1,175 +1,251 @@
 "use client"
-import { useEffect, useState } from 'react';
-import { LeafyGreen, Drone, ShieldCheck, ShoppingBag, ArrowRight } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { LeafyGreen, Drone, ShieldCheck, ArrowUpRight, Star } from 'lucide-react';
 import Image from 'next/image';
-
-const avatars = [
-    { label: "JIM", bg: "#AE8463", left: "left-0" },
-    { label: "ALI", bg: "#C29C6F", left: "left-8" },
-    { label: "SAM", bg: "#8C6146", left: "left-16" },
-    { label: "+2k", bg: "#40332A", left: "left-24" },
-];
 
 const slides = [
     {
         id: 1,
-        icon: <LeafyGreen className="w-12 h-12  text-[#798643] " />,
-        badge: "Chef's Kitchen to Door",
-        tagline1: "Good food",
-        tagline2: "finds you.",
-        subtitle: "From fresh ingredients to your doorstep, we ensure every meal is prepared with care and quality.",
-        buttonText: "Shop Now",
-        accent: "text-[#798643]",
-        accentBg: "bg-[#798643]",
-        image: "https://images.unsplash.com/photo-1662192513841-c890cc6ff3f9?q=80&w=776&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        eyebrow: "Farm to table",
+        word1: "HONEST",
+        word2: "FOOD.",
+        sub: "Fresh. Local. Yours.",
+        accent: "#C8965A",
+        badge: "Chef's Kitchen",
+        icon: <LeafyGreen className="w-5 h-5" />,
+        image: "https://images.unsplash.com/photo-1662192513841-c890cc6ff3f9?q=80&w=776&auto=format&fit=crop",
+        stat: { n: "98%", label: "Fresh rated" },
+        tag: "Seasonal menu",
     },
     {
         id: 2,
-        icon: <Drone className="w-12 h-12  text-[#8B1917] " />,
+        eyebrow: "Speed matters",
+        word1: "FAST.",
+        word2: "HOT.",
+        sub: "Under 30 min, guaranteed.",
+        accent: "#C85A5A",
         badge: "30-min Delivery",
-        tagline1: "Order now,",
-        tagline2: "eat soon.",
-        subtitle: "Hot, fresh, and on time — every order is tracked in real time and delivered to your door in under 30 minutes.",
-        buttonText: "Order Now",
-        accent: "text-[#8B1917]",
-        accentBg: "bg-[#8B1917]",
-        image: "https://images.unsplash.com/photo-1659367736714-e3f0344a6266?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        badge2: "24/7",
+        icon: <Drone className="w-5 h-5" />,
+        image: "https://images.unsplash.com/photo-1659367736714-e3f0344a6266?q=80&w=1287&auto=format&fit=crop",
+        stat: { n: "28 min", label: "Avg. delivery" },
+        tag: "Live tracking",
     },
     {
         id: 3,
-        icon: <ShieldCheck className="w-12 h-12  text-[#6d6e6d] " />,
-        badge: "Quality Checked",
-        tagline1: "Great quality,",
-        tagline2: "guaranteed.",
-        subtitle: "Every meal is inspected, hygienically packed, and sealed before it leaves our hands — so you can relish with confidence.",
-        buttonText: "Get Started",
-        accent: "text-[#6d6e6d]",
-        accentBg: "bg-[#6d6e6d]",
-        image: "https://images.unsplash.com/photo-1553395266-51c63ddf3d8e?q=80&w=1064&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        eyebrow: "No compromises",
+        word1: "CLEAN.",
+        word2: "SEALED.",
+        sub: "Every order inspected.",
+        accent: "#5A8AC8",
+        badge: "Quality First",
+        icon: <ShieldCheck className="w-5 h-5" />,
+        image: "https://images.unsplash.com/photo-1553395266-51c63ddf3d8e?q=80&w=1064&auto=format&fit=crop",
+        stat: { n: "4.9", label: "Avg. rating" },
+        tag: "Hygiene certified",
     },
 ];
 
-function HeroSection() {
-    const [currentSlide, setCurrentSlide] = useState(0);
-    const [animating, setAnimating] = useState(false);
+const avatars = [
+    { label: "JM", bg: "#AE8463" },
+    { label: "AL", bg: "#C29C6F" },
+    { label: "SK", bg: "#8C6146" },
+];
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            goToSlide((prev:number) => (prev + 1) % slides.length);
-        }, 8000);
-        return () => clearInterval(interval);
-    }, []);
+export default function HeroSection() {
+    const [cur, setCur] = useState(0);
+    const [out, setOut] = useState(false);
+    const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-    const goToSlide = (indexOrUpdater:any) => {
-        setAnimating(true);
-        setTimeout(() => {
-            setCurrentSlide(indexOrUpdater);
-            setAnimating(false);
-        }, 300);
+    const go = (i: number) => {
+        if (i === cur || out) return;
+        setOut(true);
+        setTimeout(() => { setCur(i); setOut(false); }, 450);
     };
 
-    const slide = slides[currentSlide];
+    const startTimer = () => {
+        if (timerRef.current) clearInterval(timerRef.current);
+        timerRef.current = setInterval(() => {
+            setOut(true);
+            setTimeout(() => {
+                setCur(p => (p + 1) % slides.length);
+                setOut(false);
+            }, 450);
+        }, 7000);
+    };
+
+    useEffect(() => { startTimer(); return () => { if (timerRef.current) clearInterval(timerRef.current); }; }, []);
+
+    const s = slides[cur];
 
     return (
-        <section className="w-[96%] mx-auto mt-24 h-[78vh] rounded-2xl overflow-hidden relative shadow-2xl flex">
+        <section
+            className="w-[96%] mx-auto mt-24 rounded-2xl overflow-hidden relative"
+            style={{ height: '82vh', background: '#080808' }}>
 
-            {/* Ambient glow blobs */}
-            <div className="pointer-events-none absolute -right-32 top-0 h-96 w-96 rounded-full bg-primary/10 blur-[120px] z-0" />
-            <div className="pointer-events-none absolute bottom-0 left-10 h-80 w-80 rounded-full bg-primary/5 blur-[100px] z-0" />
+            {/* ── FULL BG IMAGE, heavily dimmed ── */}
+            <div className="absolute inset-0 z-0">
+                <Image
+                    src={s.image} alt="" fill sizes="100vw" priority
+                    className={`object-cover transition-all duration-700 ${out ? 'opacity-0 scale-[1.03]' : 'opacity-100 scale-100'}`}
+                    style={{ filter: 'brightness(0.13) saturate(0.6)' }}
+                />
+            </div>
 
-            {/* ── LEFT PANEL ── */}
-            <div className="relative z-10 flex flex-col justify-between w-full sm:w-1/2 h-full px-8 py-10">
+            {/* ── ACCENT GLOW top-right ── */}
+            <div className="absolute top-[-80px] right-[-80px] w-[420px] h-[420px] rounded-full pointer-events-none z-0 transition-all duration-1000"
+                 style={{ background: s.accent, opacity: 0.07, filter: 'blur(90px)' }} />
 
-                {/* Badge */}
-                <div className={`flex items-center gap-2 transition-opacity duration-300 ${animating ? 'opacity-0' : 'opacity-100'}`}>
-                    <span className={`h-2 w-2 rounded-full  shadow-[0_0_6px_2px_rgba(250,204,21,0.5)] ${slide.accentBg}`} />
-                    <span className={`text-xs font-semibold tracking-wide uppercase ${slide.accent}`}>
-                        {slide.badge}
-                        {slide.badge2 && (
-                            <span className="ml-2 inline-block text-[10px] px-2 py-0.5 bg-white/10 text-amber-400 rounded-md animate-pulse">
-                                {slide.badge2}
-                            </span>
-                        )}
+            {/* ── THIN TOP BAR ── */}
+            <div className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-10 pt-8">
+                <div className={`flex items-center gap-2 transition-all duration-400 ${out ? 'opacity-0' : 'opacity-100'}`}>
+                    <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: s.accent }} />
+                    <span className="text-[11px] tracking-[0.2em] uppercase font-medium"
+                          style={{ color: s.accent }}>
+                        {s.badge}
                     </span>
                 </div>
+                <div className="flex items-center gap-1.5">
+                    <span className="text-white/20 text-xs font-mono">{String(cur + 1).padStart(2,'0')}</span>
+                    <span className="text-white/10 text-xs">/</span>
+                    <span className="text-white/10 text-xs font-mono">{String(slides.length).padStart(2,'0')}</span>
+                </div>
+            </div>
 
-                {/* Headline + subtitle */}
-                <div className={`flex flex-col gap-5 transition-all duration-300 ${animating ? 'opacity-0 translate-y-2' : 'opacity-100 translate-y-0'}`}>
-                    <div>
-                        <h1 className="text-5xl sm:text-6xl xl:text-7xl font-serif font-normal text-foreground leading-tight">
-                            {slide.tagline1}
-                        </h1>
-                        <h1 className={`text-5xl sm:text-6xl xl:text-7xl font-serif font-normal leading-tight ${slide.accent}`}>
-                            <em>{slide.tagline2}</em>
-                        </h1>
-                    </div>
-                    <p className="text-base text-white/50 max-w-sm leading-relaxed">
-                        {slide.subtitle}
-                    </p>
+            {/* ── MAIN CONTENT ── */}
+            <div className="relative z-10 h-full flex flex-col justify-end pb-12 px-10">
+
+                {/* Eyebrow */}
+                <p className={`text-xs tracking-[0.25em] uppercase mb-4 transition-all duration-500 ${out ? 'opacity-0 translate-y-3' : 'opacity-100 translate-y-0'}`}
+                   style={{ color: `${s.accent}99` }}>
+                    {s.eyebrow}
+                </p>
+
+                {/* GIANT HEADLINE — the whole design */}
+                <div className={`transition-all duration-500 delay-[50ms] ${out ? 'opacity-0 translate-y-5' : 'opacity-100 translate-y-0'}`}>
+                    <h1
+                        className="font-serif italic font-normal leading-[0.88] text-white/90 select-none"
+                        style={{ fontSize: 'clamp(5rem, 13vw, 10.5rem)', letterSpacing: '-0.02em' }}>
+                        {s.word1}
+                    </h1>
+                    <h1
+                        className="font-serif italic font-normal leading-[0.88] select-none"
+                        style={{
+                            fontSize: 'clamp(5rem, 13vw, 10.5rem)',
+                            letterSpacing: '-0.02em',
+                            color: s.accent,
+                            WebkitTextStroke: `1px ${s.accent}`,
+                        }}>
+                        {s.word2}
+                    </h1>
                 </div>
 
-                {/* CTA */}
-                <div className="flex flex-col gap-8">
-                    <button className="group flex items-center gap-2 self-start rounded-full border border-border bg-card px-5 py-3 text-sm font-semibold transition-all duration-300 hover:bg-primary hover:text-black hover:border-primary hover:gap-3">
-                        <ShoppingBag size={15} />
-                        <span>{slide.buttonText}</span>
-                        <ArrowRight size={14} className="opacity-0 -ml-1 group-hover:opacity-100 transition-all duration-300" />
-                    </button>
+                {/* Bottom row */}
+                <div className={`mt-10 flex items-end justify-between gap-4 transition-all duration-500 delay-100 ${out ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
 
-                    {/* Social proof */}
-                    <div className="flex items-center gap-12">
-                        <div className="relative h-10 w-36 shrink-0">
-                            {avatars.map((a) => (
+                    {/* Left: sub + CTA */}
+                    <div className="flex flex-col gap-5">
+                        <p className="text-white/40 text-sm leading-relaxed max-w-[22ch]">{s.sub}</p>
+                        <div className="flex items-center gap-4">
+                            <button
+                                className="group flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-black transition-all duration-200 hover:brightness-110 active:scale-95"
+                                style={{ background: s.accent }}>
+                                Order now
+                                <ArrowUpRight size={14} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                            </button>
+                            <button className="text-xs text-white/25 hover:text-white/50 transition-colors tracking-wide">
+                                Browse menu
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Right: social proof + stat */}
+                    <div className="hidden sm:flex flex-col items-end gap-4">
+
+                        {/* Stat */}
+                        <div className="text-right">
+                            <p className="text-3xl font-bold text-white/90 leading-none tabular-nums">{s.stat.n}</p>
+                            <p className="text-[11px] text-white/25 mt-1 tracking-wide">{s.stat.label}</p>
+                        </div>
+
+                        {/* Divider */}
+                        <div className="w-8 h-px bg-white/10" />
+
+                        {/* Avatars + stars */}
+                        <div className="flex flex-col items-end gap-2">
+                            <div className="flex">
+                                {avatars.map((a, i) => (
+                                    <span key={a.label}
+                                          style={{ backgroundColor: a.bg, marginLeft: i === 0 ? 0 : '-7px', zIndex: avatars.length - i }}
+                                          className="relative w-7 h-7 rounded-full border-2 border-[#080808] flex items-center justify-center text-[9px] font-bold text-white">
+                                        {a.label}
+                                    </span>
+                                ))}
                                 <span
-                                    key={a.label}
-                                    style={{ backgroundColor: a.bg }}
-                                    className={`absolute ${a.left} top-0 flex items-center justify-center w-9 h-9 rounded-full border-[3px] border-background text-[10px] font-bold font-mono text-white shadow-md`}
-                                >
-                                    {a.label}
+                                    className="relative w-7 h-7 rounded-full border-2 border-[#080808] flex items-center justify-center text-[8px] font-bold text-white"
+                                    style={{ marginLeft: '-7px', background: '#1a1a1a', zIndex: 0 }}>
+                                    +2k
                                 </span>
-                            ))}
+                            </div>
+                            <div className="flex items-center gap-1">
+                                {[...Array(5)].map((_, i) => (
+                                    <Star key={i} size={10} style={{ fill: s.accent, color: s.accent }} />
+                                ))}
+                                <span className="text-[10px] text-white/25 ml-1">2,000+ orders</span>
+                            </div>
                         </div>
-                        <div className="flex flex-col">
-                            <span className="text-sm text-white/80 tracking-wide">⭐️⭐️⭐️⭐️⭐️</span>
-                            <span className="text-xs text-white/40 mt-0.5">Loved by 2,000+ neighbors</span>
-                        </div>
+                    </div>
+                </div>
+
+                {/* ── SLIDE DOTS ── */}
+                <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex items-center gap-2">
+                    {slides.map((sl, i) => (
+                        <button key={i}
+                                onClick={() => { go(i); startTimer(); }}
+                                aria-label={`Slide ${i + 1}`}
+                                className="rounded-full transition-all duration-300"
+                                style={{
+                                    height: '3px',
+                                    width: i === cur ? '32px' : '6px',
+                                    background: i === cur ? s.accent : 'rgba(255,255,255,0.15)',
+                                }} />
+                    ))}
+                </div>
+            </div>
+
+            {/* ── FOOD IMAGE INSET (right side, desktop) ── */}
+            <div className="absolute right-10 top-1/2 -translate-y-1/2 hidden lg:block z-10 w-[34%]">
+                <div className={`relative rounded-2xl overflow-hidden transition-all duration-600 ${out ? 'opacity-0 scale-[0.96] translate-y-2' : 'opacity-100 scale-100 translate-y-0'}`}
+                     style={{
+                         height: '58vh',
+                         boxShadow: `0 0 0 1px ${s.accent}18, 0 40px 80px rgba(0,0,0,0.7)`,
+                     }}>
+                    <Image
+                        src={s.image} alt={s.word1}
+                        fill sizes="34vw" priority
+                        className="object-cover"
+                        style={{ filter: 'brightness(0.9) saturate(1.1)' }}
+                    />
+                    {/* Inner vignette */}
+                    <div className="absolute inset-0"
+                         style={{ background: `linear-gradient(to top, rgba(8,8,8,0.55) 0%, transparent 50%)` }} />
+
+                    {/* Tag chip */}
+                    <div className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium backdrop-blur-md border border-white/10"
+                         style={{ background: 'rgba(8,8,8,0.65)', color: s.accent }}>
+                        <span style={{ color: s.accent }}>{s.icon}</span>
+                        {s.tag}
+                    </div>
+
+                    {/* Bottom label */}
+                    <div className="absolute bottom-4 left-4 right-4">
+                        <p className="text-white/60 text-xs tracking-wide">{s.sub}</p>
                     </div>
                 </div>
             </div>
 
-            {/* ── RIGHT PANEL (image) ── */}
-            <div className="relative hidden sm:block sm:w-1/2 h-70vh overflow-hidden">
-                <Image
-                    src={slide.image}
-                    alt={slide.tagline1}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    priority
-                    className={`object-cover transition-all duration-700 ${animating ? 'opacity-0 scale-105' : 'opacity-100 scale-100'}`}
-                />
-                {/* left-to-right fade so image blends into left panel */}
-                <div className="absolute inset-0 bg-linear-to-r from-background via-background/20 to-transparent" />
-
-                {/* slide icon floating on image */}
-                <div className={`absolute bottom-8 right-8 p-4 bg-background/20 backdrop-blur-sm rounded-2xl border border-white/10 transition-all duration-300 ${animating ? 'opacity-0 scale-90' : 'opacity-100 scale-100'}`}>
-                    {slide.icon}
-                </div>
-            </div>
-
-            {/* ── SLIDE DOTS ── */}
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20">
-                {slides.map((_, i) => (
-                    <button
-                        key={i}
-                        onClick={() => goToSlide(i)}
-                        className={`h-1.5 rounded-full transition-all duration-300 ${i === currentSlide ? 'w-6 bg-primary' : 'w-1.5 bg-white/20 hover:bg-white/40'}`}
-                        aria-label={`Go to slide ${i + 1}`}
-                    />
-                ))}
-            </div>
         </section>
     );
 }
 
-export default HeroSection;
+
+

@@ -1,5 +1,5 @@
 "use client"
-import React, { useRef } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { Pizza, Salad, Wine, Utensils, Drumstick, Cookie, Cake, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -16,6 +16,8 @@ const categories: { name: string; icon: React.ReactNode; color: string }[] = [
 
 function CategorySlider() {
     const scrollRef = useRef<HTMLDivElement>(null);
+    const[showLeftBtn,setShowLeftBtn]=useState<Boolean>(false);
+    const[showRightBtn,setShowRightBtn]=useState<Boolean>(true)
 
     const scroll = (btn: 'left' | 'right') => {
         let moveValue;
@@ -37,16 +39,29 @@ function CategorySlider() {
 
     };
 
+    const showHideBtn=()=>{
+        if(!scrollRef.current)return;
+        const{scrollLeft,clientWidth,scrollWidth}=scrollRef.current;
+
+        setShowLeftBtn(scrollLeft>0);
+        setShowRightBtn((scrollLeft+clientWidth) < (scrollWidth-7));
+    }
+useEffect(()=>{
+  scrollRef.current?.addEventListener('scroll',showHideBtn);
+  return ()=>{
+    scrollRef.current?.removeEventListener('scroll',showHideBtn);
+  }
+},[])
     return (
         <motion.div className="flex flex-col items-center w-[98%]  pt-18 pb-12 mx-auto"
                     initial={{ y: 40,opacity:0 }} whileInView={{ opacity: 1,y:0 }}  transition={{ duration: 0.6 }} viewport={{once:false,amount:0.5}}>
             <h2 className="text-2xl font-bold mb-4 md:text-3xl text-center text-white">Shop By Category</h2>
             <div className="relative w-full">
-                <button
+                {showLeftBtn &&  <button
                     onClick={() => scroll('left')}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 backdrop-blur-sm">
+                    className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 backdrop-blur-sm shadow-[0_0_12px_rgba(0,0,0,0.7)]">
                     <ChevronLeft className="h-6 w-6" />
-                </button>
+                </button>}
                 <div
                     ref={scrollRef}
                     className="flex gap-3 overflow-x-auto px-12 pb-2 scrollbar-hide scroll-smooth bg-pink-400/4 relative">
@@ -73,12 +88,12 @@ function CategorySlider() {
                 <div className="absolute left-0 top-0 bg-linear-to-r from-black via-black/50 to-transparent h-full w-16 pointer-events-none z-5"/>
                 <div className="absolute right-0 top-0 bg-linear-to-l from-black via-black/50 to-transparent h-full w-16 pointer-events-none z-5"/>
 
-
-                <button
+                {showRightBtn &&  <button
                     onClick={() => scroll('right')}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 backdrop-blur-sm">
+                    className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-200 backdrop-blur-sm shadow-[0_0_12px_rgba(0,0,0,0.7)]">
                     <ChevronRight className="h-6 w-6" />
-                </button>
+                </button>}
+
             </div>
         </motion.div>
     );
