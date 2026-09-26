@@ -4,7 +4,7 @@ import {ShoppingBag} from 'lucide-react';
 function UserBag() {
     return (
         <button
-            className="relative flex size-11 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-[0_8px_20px_-8px_var(--primary)] transition-transform hover:-translate-y-0.5"
+            className="relative flex size-11 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-[0_8px_20px_-8px_var(--glow)] transition-transform hover:-translate-y-0.5"
             aria-label="Open your bag">
             <ShoppingBag size={18} strokeWidth={2.2} aria-hidden="true"/>
             <span

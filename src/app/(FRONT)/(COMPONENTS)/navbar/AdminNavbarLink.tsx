@@ -9,15 +9,15 @@ function AdminNavbarLink({isSidebarOpen, setIsSidebarOpen}: {isSidebarOpen: bool
     return (<>
         {/*Big screen*/}
             <div className="hidden md:flex items-center gap-2 w-full justify-center ">
-                <Link href="/admin/add-meal" className="group flex items-center gap-2 px-4 py-2 rounded-lg border border-border/50 bg-muted/40 text-foreground transition-all duration-200 hover:border-primary/50 hover:bg-primary/10 hover:shadow-sm">
+                <Link href="/admin/add-meal" className="group flex items-center gap-2 rounded-full border border-border/50 bg-muted/40 px-4 py-2 text-foreground transition-all duration-200 hover:border-primary/50 hover:bg-primary/10 hover:shadow-sm">
                     <PlusCircle className="size-4 text-muted-foreground transition-colors group-hover:text-primary"/>
                     <span className="text-sm font-medium">Add Meals</span>
                 </Link>
-                <Link href="/admin" className="group flex items-center gap-2 px-4 py-2 rounded-lg border border-border/50 bg-muted/40 text-foreground transition-all duration-200 hover:border-primary/50 hover:bg-primary/10 hover:shadow-sm">
+                <Link href="/" className="group flex items-center gap-2 rounded-full border border-border/50 bg-muted/40 px-4 py-2 text-foreground transition-all duration-200 hover:border-primary/50 hover:bg-primary/10 hover:shadow-sm">
                     <Citrus className="size-4 text-muted-foreground transition-colors group-hover:text-primary"/>
                     <span className="text-sm font-medium">View Meals</span>
                 </Link>
-                <Link href="/admin" className="group flex items-center gap-2 px-4 py-2 rounded-lg border border-border/50 bg-muted/40 text-foreground transition-all duration-200 hover:border-primary/50 hover:bg-primary/10 hover:shadow-sm">
+                <Link href="/" className="group flex items-center gap-2 rounded-full border border-border/50 bg-muted/40 px-4 py-2 text-foreground transition-all duration-200 hover:border-primary/50 hover:bg-primary/10 hover:shadow-sm">
                     <Package2 className="size-4 text-muted-foreground transition-colors group-hover:text-primary"/>
                     <span className="text-sm font-medium">View Orders</span>
                 </Link>

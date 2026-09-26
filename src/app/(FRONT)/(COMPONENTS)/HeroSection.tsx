@@ -79,15 +79,15 @@ export default function HeroSection() {
 
     return (
         <section
-            className="w-[96%] mx-auto mt-24 rounded-2xl overflow-hidden relative"
-            style={{ height: '82vh', background: 'var(--background)' }}>
+            className="relative mx-auto mt-5 h-[78vh] w-[96%] max-w-7xl overflow-hidden rounded-3xl border border-white/8 lg:max-w-[1400px]"
+            style={{ background: 'var(--background)' }}>
 
             {/* Full-bleed bg image, very dim */}
             <div className="absolute inset-0 z-0">
                 <Image
                     src={s.image} alt="" fill sizes="100vw" priority
                     className={`object-cover transition-all duration-700 ${out ? 'opacity-0 scale-[1.03]' : 'opacity-100 scale-100'}`}
-                    style={{ filter: 'brightness(0.12) saturate(0.5)' }}
+                    style={{ filter: 'brightness(0.18) saturate(0.7)' }}
                 />
             </div>
 

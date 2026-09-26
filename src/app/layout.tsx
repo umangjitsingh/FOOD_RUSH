@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Serif_Display, Geist, Geist_Mono, } from "next/font/google";
+import { DM_Serif_Display, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Provider from "@/Provider";
 
@@ -16,13 +16,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      className={`dark ${geist.variable} ${geistMono.variable} ${dmSerif.variable} h-full antialiased`}
       data-scroll-behavior="smooth"
-      className={`${geist.variable} ${geistMono.variable} ${dmSerif.variable} h-full antialiased`}
     >
-      <body className="flex flex-col w-full bg-[#0d0e14] " >
-      <Provider>
-        {children}
-      </Provider>
+      <body className="relative flex min-h-full w-full flex-col bg-background text-foreground">
+        <Provider>
+          {children}
+        </Provider>
       </body>
     </html>
   );

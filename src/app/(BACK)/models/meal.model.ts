@@ -8,7 +8,7 @@ export interface IMeal extends Document {
     price: number;
     size?: ["Small", "Medium", "Large"];
 
-    image?: string[];
+    image: string[];
     createdAt?: Date;
     updatedAt?: Date;
 }
@@ -21,6 +21,7 @@ const mealSchema = new mongoose.Schema<IMeal>({
 
     image: {
         type: [String],
+        required: true,
         validate: {
             validator: function(v: string[]) {
                 return v.length <= 4;

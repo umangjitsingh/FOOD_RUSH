@@ -1,6 +1,5 @@
 @import 'tailwindcss';
 
-
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -18,12 +17,14 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --font-sans: 'Geist', 'Geist Fallback';
-  --font-serif: 'DM Serif Display', 'Georgia', serif;
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-sans: var(--font-geist), 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-dm-serif), 'DM Serif Display', Georgia, serif;
+  --font-mono: var(--font-geist-mono), 'Geist Mono', ui-monospace, monospace;
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -31,12 +32,98 @@
   --radius-2xl: calc(var(--radius) * 1.8);
 }
 
-:root { color-scheme: dark; --background: oklch(0.12 0.018 70); --foreground: oklch(0.96 0.02 75); --card: oklch(0.17 0.02 68); --card-foreground: oklch(0.96 0.02 75); --popover: oklch(0.17 0.02 68); --popover-foreground: oklch(0.96 0.02 75); --primary: oklch(0.76 0.16 67); --primary-foreground: oklch(0.16 0.025 55); --secondary: oklch(0.22 0.025 68); --secondary-foreground: oklch(0.96 0.02 75); --muted: oklch(0.22 0.025 68); --muted-foreground: oklch(0.69 0.025 70); --accent: oklch(0.23 0.045 68); --accent-foreground: oklch(0.96 0.02 75); --border: oklch(1 0 0 / 11%); --input: oklch(1 0 0 / 15%); --ring: oklch(0.76 0.16 67); --radius: 0.85rem; }
+:root {
+  color-scheme: dark;
+  --background: #07080d;
+  --foreground: #f6f1e8;
+  --card: #12141c;
+  --card-foreground: #f6f1e8;
+  --popover: #161822;
+  --popover-foreground: #f6f1e8;
+  --primary: #f0b429;
+  --primary-foreground: #1a1204;
+  --secondary: #1c1f2b;
+  --secondary-foreground: #f6f1e8;
+  --muted: #1a1d28;
+  --muted-foreground: #9a9388;
+  --accent: #242837;
+  --accent-foreground: #f6f1e8;
+  --destructive: #f87171;
+  --destructive-foreground: #1a0707;
+  --border: rgb(255 255 255 / 9%);
+  --input: rgb(255 255 255 / 12%);
+  --ring: #f0b429;
+  --radius: 1rem;
+  --glow: rgb(240 180 41 / 28%);
+}
 
-html { background: var(--background); scroll-behavior: smooth; }
-body { @apply bg-background text-foreground font-sans antialiased; }
-button, a { -webkit-tap-highlight-color: transparent; }
+html {
+  background: var(--background);
+  scroll-behavior: smooth;
+}
 
-.scrollbar-hide::-webkit-scrollbar { display: none; }
-.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+body {
+  @apply bg-background text-foreground font-sans antialiased;
+  min-height: 100%;
+  background-image:
+    radial-gradient(1200px 600px at 85% -10%, rgb(240 180 41 / 10%), transparent 55%),
+    radial-gradient(900px 500px at -10% 110%, rgb(99 102 241 / 10%), transparent 50%),
+    linear-gradient(180deg, #07080d 0%, #0b0d14 100%);
+}
 
+body::before {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.glass {
+  background: rgb(12 14 22 / 72%);
+  backdrop-filter: blur(22px) saturate(140%);
+  border: 1px solid rgb(255 255 255 / 8%);
+}
+
+.glow-ring {
+  box-shadow:
+    0 0 0 1px rgb(240 180 41 / 18%),
+    0 18px 50px -24px var(--glow);
+}
+
+.input-field {
+  @apply w-full rounded-xl border border-border bg-muted/50 py-3 pl-12 pr-4 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/70 focus:border-primary/50 focus:bg-card focus:ring-4 focus:ring-primary/12;
+}
+
+.btn-primary {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-[0_12px_32px_-12px_var(--glow)] transition-all hover:-translate-y-0.5 hover:brightness-110 active:scale-[0.98];
+}
+
+.btn-ghost {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-card/60 px-5 py-3 text-sm font-semibold text-foreground transition-all hover:border-primary/40 hover:bg-primary/10;
+}
+
+.surface-card {
+  @apply rounded-2xl border border-border bg-card/80 shadow-[0_24px_80px_-40px_rgba(0,0,0,0.75)];
+}
+
+::selection {
+  background: rgb(240 180 41 / 28%);
+  color: #fff8ea;
+}

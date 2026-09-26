@@ -75,162 +75,106 @@ function addMeal() {
         await signOut({callbackUrl: "/login"})
     }
     return (
-        <div className="overflow-hidden bg-background text-foreground w-full min-h-screen">
+        <main className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-4 py-16">
+            <div className="pointer-events-none absolute -right-24 top-0 h-[28rem] w-[28rem] rounded-full bg-primary/15 blur-[140px]" />
+            <button
+                className="absolute top-5 right-5 flex items-center gap-2 rounded-full border border-red-500/25 px-4 py-2 text-sm font-medium text-red-300 transition-all hover:bg-red-500/15"
+                onClick={handleSignOut}>
+                <LogOut size={16}/>
+                Logout
+            </button>
 
-            {/* REAL TOP ANCHOR */}
-
-            <section className="relative mx-auto max-w-360 px-5 py-5 sm:px-8 lg:px-12 scroll-mt-20">
-                {/* Background blobs */}
-                <div
-                    className="pointer-events-none absolute -right-20 top-8 h-120 w-lg rounded-full bg-primary/10 blur-[130px]"/>
-                <div
-                    className="pointer-events-none absolute bottom-6 left-0 h-120 w-120 rounded-full bg-primary/4 blur-[110px]"/>
-
-                <div className="flex items-center justify-center h-screen w-full">
-                    <div
-                        className="w-full max-w-xl bg-border hover:bg-linear-to-br hover:from-primary/10 hover:to-primary/40 h-auto transition-all flex items-center justify-center p-px rounded-2xl">
-                        <div className="bg-black h-full w-full z-90 rounded-2xl p-8">
-                            {/* Header */}
-                            <div className="w-full flex flex-col items-center justify-center mb-8">
-                                <h1 className="max-w-2xl font-serif text-4xl font-bold leading-[0.98] tracking-snug text-balance sm:text-5xl lg:text-[58px] pt-4">Add
-                                    Meal</h1>
-                                <p className="text-lg font-medium lowercase tracking-tight text-muted-foreground/60 pt-1.5">create <span
-                                    className="italic font-extrabold text-lg text-primary/90 uppercase">delicious.</span> menu
-                                </p>
-                            </div>
-
-                            <form className="w-full flex flex-col items-center" onSubmit={handleSubmit}>
-                                <div className="w-full px-8 space-y-5">
-
-                                    {/* Name Input */}
-                                    <div className="relative z-90">
-                                        <Utensils
-                                            className="absolute top-1/2 left-4 -translate-y-1/2 text-muted-foreground h-5 w-5"/>
-                                        <input
-                                            type="text"
-                                            id="name"
-                                            placeholder="Meal name (e.g., Grilled Chicken)"
-                                            value={name}
-                                            onChange={(e) => setName(e.target.value)}
-                                            className="w-full border-2 border-border pl-12 py-3 rounded-md placeholder:text-muted-foreground bg-background"
-                                        />
-                                    </div>
-
-                                    {/* Category & Size Row */}
-                                    <div className="flex gap-4">
-                                        <div className="relative z-90 flex-1">
-                                            <Tag
-                                                className="absolute top-1/2 left-4 -translate-y-1/2 text-muted-foreground h-5 w-5"/>
-                                            <select
-                                                name="category"
-                                                id="category"
-                                                value={category}
-                                                onChange={(e) => setCategory(e.target.value)}
-                                                className="w-full border-2 border-border pl-12 py-3 rounded-md placeholder:text-muted-foreground bg-background appearance-none cursor-pointer"
-                                            >
-                                                <option value="">Category</option>
-                                                {categories.map((category) => (
-                                                    <option key={category} value={category}>{category}</option>
-                                                ))}
-                                            </select>
-                                        </div>
-
-                                        <div className="relative z-90 flex-1">
-                                            <select
-                                                name="size"
-                                                id="size"
-                                                value={size}
-                                                onChange={(e) => setSize(e.target.value)}
-                                                className="w-full border-2 border-border px-4 py-3 rounded-md placeholder:text-muted-foreground bg-background appearance-none cursor-pointer"
-                                            >
-                                                <option value="">Size</option>
-                                                {["Small", "Medium", "Large"].map((size) => (
-                                                    <option key={size} value={size}>{size}</option>
-                                                ))}
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    {/* Price Input */}
-                                    <div className="relative z-90">
-                                        <DollarSign
-                                            className="absolute top-1/2 left-4 -translate-y-1/2 text-muted-foreground h-5 w-5"/>
-                                        <input
-                                            type="text"
-                                            id="price"
-                                            placeholder="Price (e.g., 6.99)"
-                                            value={price}
-                                            onChange={(e) => setPrice(e.target.value)}
-                                            className="w-full border-2 border-border pl-12 py-3 rounded-md placeholder:text-muted-foreground bg-background"
-                                        />
-                                    </div>
-
-
-
-                                    <div className="relative z-90">
-                                        <PlusCircle
-                                            className="absolute top-1/2 left-4 -translate-y-1/2 text-muted-foreground h-5 w-5"/>
-                                        <input
-                                            type="file"
-                                            id="image"
-                                            onChange={(e) => handleImageChange(e)}
-                                            className="hidden"
-                                            multiple
-                                        />
-                                        <label
-                                            htmlFor="image"
-                                            className="w-full border-2 border-border pl-12 py-3 rounded-md placeholder:text-muted-foreground bg-background flex items-center cursor-pointer"
-                                        >
-                                            <span className="text-muted-foreground">{imageFiles.length > 0 ? `${imageFiles.length} file(s) selected` : "Choose file"}</span>
-                                        </label>
-                                    </div>
-                                    <div className="mt-4 flex items-center gap-1">
-                                        {imageArr.length > 0 && imageArr.map((i) => (
-
-                                                <Image key={i} src={i} alt="Preview" width={80} height={80}
-                                                       className="rounded-md"  />
-
-                                                 )
-                                        )
-                                        }
-                                    </div>
-                                </div>
-
-                                {/* Submit Button */}
-                                <div className="mt-8 flex items-center w-full px-8">
-                                    <button
-                                        type="submit"
-                                        className="w-full flex shrink-0 items-center justify-center gap-4 rounded-md bg-primary px-3 py-4 text-sm font-bold text-primary-foreground transition-transform hover:scale-[1.02] sm:px-5"
-                                        disabled={loading}
-                                    >
-                                       {loading ? <Loader className="animate-spin w-5 h-5"/> : <> <span> Meal</span> <Check size={17}/> </>}
-
-                                    </button>
-                                </div>
-                            </form>
-
-                            {/* Back Link */}
-                            <div className="mt-6 flex items-center justify-center">
-                                <Link
-                                    href="/admin"
-                                    className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
-                                >
-                                    <ArrowLeft size={16}/>
-                                    <span>Back to Dashboard</span>
-                                </Link>
-                            </div>
-                        </div>
-                        <button
-                            className="absolute top-4 right-4 flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-red-400 bg-transparent border border-red-500/30 transition-all duration-300 hover:bg-red-950/50 hover:border-red-500/50 hover:text-red-300 hover:shadow-lg hover:shadow-red-900/20 active:scale-95"
-                            onClick={handleSignOut}>
-                            <LogOut size={16}/>
-                            Logout
-                        </button>
+            <div className="glow-ring relative w-full max-w-lg rounded-3xl p-px">
+                <div className="surface-card relative overflow-hidden rounded-[23px] px-6 py-10 sm:px-10">
+                    <div className="mb-8 text-center">
+                        <h1 className="font-serif text-4xl italic sm:text-5xl">Add meal</h1>
+                        <p className="mt-2 text-sm text-muted-foreground">Create the next <span className="text-primary">delicious</span> listing.</p>
                     </div>
 
+                    <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+                        <div className="relative">
+                            <Utensils className="absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-muted-foreground"/>
+                            <input
+                                type="text"
+                                id="name"
+                                placeholder="Meal name (e.g., Grilled Chicken)"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                className="input-field"
+                            />
+                        </div>
+
+                        <div className="flex gap-3">
+                            <div className="relative flex-1">
+                                <Tag className="absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-muted-foreground"/>
+                                <select
+                                    name="category"
+                                    id="category"
+                                    value={category}
+                                    onChange={(e) => setCategory(e.target.value)}
+                                    className="input-field appearance-none"
+                                >
+                                    <option value="">Category</option>
+                                    {categories.map((category) => (
+                                        <option key={category} value={category}>{category}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="relative flex-1">
+                                <select
+                                    name="size"
+                                    id="size"
+                                    value={size}
+                                    onChange={(e) => setSize(e.target.value)}
+                                    className="input-field appearance-none !pl-4"
+                                >
+                                    <option value="">Size</option>
+                                    {["Small", "Medium", "Large"].map((size) => (
+                                        <option key={size} value={size}>{size}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="relative">
+                            <DollarSign className="absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-muted-foreground"/>
+                            <input
+                                type="text"
+                                id="price"
+                                placeholder="Price (e.g., 6.99)"
+                                value={price}
+                                onChange={(e) => setPrice(e.target.value)}
+                                className="input-field"
+                            />
+                        </div>
+
+                        <div className="relative">
+                            <PlusCircle className="absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-muted-foreground"/>
+                            <input type="file" id="image" onChange={handleImageChange} className="hidden" multiple />
+                            <label htmlFor="image" className="input-field flex cursor-pointer items-center">
+                                <span className="text-muted-foreground">{imageFiles.length > 0 ? `${imageFiles.length} file(s) selected` : "Choose images"}</span>
+                            </label>
+                        </div>
+                        {imageArr.length > 0 && (
+                            <div className="flex flex-wrap gap-2">
+                                {imageArr.map((i) => (
+                                    <Image key={i} src={i} alt="Preview" width={72} height={72} className="h-16 w-16 rounded-xl object-cover" />
+                                ))}
+                            </div>
+                        )}
+
+                        <button type="submit" className="btn-primary mt-3 w-full" disabled={loading}>
+                            {loading ? <Loader className="h-5 w-5 animate-spin"/> : <>Add meal <Check size={17}/></>}
+                        </button>
+                    </form>
+
+                    <Link href="/" className="mt-6 flex items-center justify-center gap-2 text-sm text-muted-foreground hover:text-primary">
+                        <ArrowLeft size={16}/>
+                        Back to dashboard
+                    </Link>
                 </div>
-            </section>
-        </div>
+            </div>
+        </main>
     );
 }
 
