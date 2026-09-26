@@ -72,7 +72,7 @@ function HeroSection() {
     const slide = slides[currentSlide];
 
     return (
-        <section className="w-[96%] mx-auto mt-24 h-[82vh] rounded-2xl overflow-hidden relative shadow-2xl flex">
+        <section className="w-[96%] mx-auto mt-24 h-[78vh] rounded-2xl overflow-hidden relative shadow-2xl flex">
 
             {/* Ambient glow blobs */}
             <div className="pointer-events-none absolute -right-32 top-0 h-96 w-96 rounded-full bg-primary/10 blur-[120px] z-0" />
@@ -139,7 +139,7 @@ function HeroSection() {
             </div>
 
             {/* ── RIGHT PANEL (image) ── */}
-            <div className="relative hidden sm:block sm:w-1/2 h-full overflow-hidden">
+            <div className="relative hidden sm:block sm:w-1/2 h-70vh overflow-hidden">
                 <Image
                     src={slide.image}
                     alt={slide.tagline1}

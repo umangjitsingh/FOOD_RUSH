@@ -10,9 +10,14 @@
     "format": "biome format --write"
   },
   "dependencies": {
+    "@iconify-react/emojione-monotone": "gitlab:iconify-icons/react#emojione-monotone",
+    "@iconify-react/file-icons": "gitlab:iconify-icons/react#file-icons",
     "@iconify-react/flowbite": "^1.0.2",
+    "@iconify-react/hugeicons": "gitlab:iconify-icons/react#hugeicons",
     "@iconify-react/keyline-icons": "^1.0.5",
     "@iconify-react/streamline-color": "^1.0.2",
+    "@iconify-react/streamline-flex": "gitlab:iconify-icons/react#streamline-flex",
+    "@iconify-react/streamline-sharp": "gitlab:iconify-icons/react#streamline-sharp",
     "@types/axios": "^0.9.36",
     "@types/bcrypt": "^6.0.0",
     "axios": "^1.20.0",

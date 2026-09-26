@@ -17,11 +17,11 @@ export const POST = async (req: NextRequest) => {
         const category=formData.get("category") as string;
         const price=Number(formData.get("price"));
         const size=formData.get("size") as string;
-        const quantity=Number(formData.get("quantity"));
+
 
         const imageBlobs=formData.getAll("images") as Blob[] | null;
 
-        if (!name || !category || !price || !size || !quantity) {
+        if (!name || !category || !price || !size ) {
             return NextResponse.json({message:"Missing required fields"}, {status: 400});
         }
 
@@ -40,7 +40,7 @@ export const POST = async (req: NextRequest) => {
         }
 
         const meal=await Meal.create({
-            name,price,category,size,quantity,image:IMAGE_URLS
+            name,price,category,size,image:IMAGE_URLS
         })
 
         return  NextResponse.json({message:"Meal added successfully", meal}, {status: 201});

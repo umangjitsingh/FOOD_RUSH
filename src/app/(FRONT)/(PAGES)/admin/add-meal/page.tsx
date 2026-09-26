@@ -1,9 +1,10 @@
 "use client"
 import React from 'react';
-import {ArrowLeft, PlusCircle, Utensils, Tag, DollarSign, Check,Loader} from "lucide-react";
+import {ArrowLeft, PlusCircle, Utensils, Tag, DollarSign, Check, Loader, LogOut} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
+import {signOut} from "next-auth/react";
 
 
 const categories: string[] = ["Salads", "Indian", "Hakka-Chinese", "Pizza & Pasta", "Snacks & Biscuits", "Desserts", "Beverages", "Other"];
@@ -15,7 +16,7 @@ function addMeal() {
     const [imageFiles, setImageFiles] = React.useState<File[]>([]);
     const [imageArr, setImageArr] = React.useState<string[]>([]);
     const [price, setPrice] = React.useState<string>("");
-    const [quantity, setQuantity] = React.useState<string>("");
+
     const [loading, setLoading] = React.useState(false);
 
     const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +43,7 @@ function addMeal() {
             formData.append("category", category);
             formData.append("size", size);
             formData.append("price", String(price));
-            formData.append("quantity", String(quantity));
+
 
 
             // Append each image under the same key "images"
@@ -55,7 +56,7 @@ function addMeal() {
             setCategory("");
             setSize("");
             setPrice("");
-            setQuantity("");
+
             setImageFiles([]);
             setImageArr([]);
 
@@ -69,6 +70,10 @@ function addMeal() {
             setLoading(false);
         }
     };
+
+    const handleSignOut = async () => {
+        await signOut({callbackUrl: "/login"})
+    }
     return (
         <div className="overflow-hidden bg-background text-foreground w-full min-h-screen">
 
@@ -160,19 +165,7 @@ function addMeal() {
                                         />
                                     </div>
 
-                                    {/* Quantity Input */}
-                                    <div className="relative z-90">
-                                        <Tag
-                                            className="absolute top-1/2 left-4 -translate-y-1/2 text-muted-foreground h-5 w-5"/>
-                                        <input
-                                            type="text"
-                                            id="quantity"
-                                            placeholder="Quantity"
-                                            value={quantity}
-                                            onChange={(e) => setQuantity(e.target.value)}
-                                            className="w-full border-2 border-border pl-12 py-3 rounded-md placeholder:text-muted-foreground bg-background"
-                                        />
-                                    </div>
+
 
                                     <div className="relative z-90">
                                         <PlusCircle
@@ -227,7 +220,14 @@ function addMeal() {
                                 </Link>
                             </div>
                         </div>
+                        <button
+                            className="absolute top-4 right-4 flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium text-red-400 bg-transparent border border-red-500/30 transition-all duration-300 hover:bg-red-950/50 hover:border-red-500/50 hover:text-red-300 hover:shadow-lg hover:shadow-red-900/20 active:scale-95"
+                            onClick={handleSignOut}>
+                            <LogOut size={16}/>
+                            Logout
+                        </button>
                     </div>
+
                 </div>
             </section>
         </div>

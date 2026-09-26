@@ -7,7 +7,7 @@ export interface IMeal extends Document {
     category: string;
     price: number;
     size?: ["Small", "Medium", "Large"];
-    quantity: number;
+
     image?: string[];
     createdAt?: Date;
     updatedAt?: Date;
@@ -18,7 +18,7 @@ const mealSchema = new mongoose.Schema<IMeal>({
     category: {type: String, enum:["Salads", "Indian",  "Hakka-Chinese", "Pizza & Pasta", "Snacks & Biscuits", "Desserts","Beverages", "Other"]},
     price: {type: Number, required: true},
     size: {type: String, enum:["Small", "Medium", "Large"]},
-    quantity: {type: Number,default: 1, required: true},
+
     image: {
         type: [String],
         validate: {
