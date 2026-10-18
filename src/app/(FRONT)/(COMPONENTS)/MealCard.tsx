@@ -1,19 +1,33 @@
 "use client"
-import React, {useState} from 'react';
+import React  from 'react';
 import Image from 'next/image';
 import {ShoppingCart, Plus, Minus, Star} from 'lucide-react';
 import {IMeal} from "@/app/(BACK)/models/meal.model";
+import {useDispatch, useSelector} from "react-redux";
+import {addMealToCart, removeMealFromCart} from "@/app/(FRONT)/REDUX/cartSlice";
+import {RootState} from "@/app/(FRONT)/REDUX/store";
 
 function MealCard({meals}: { meals: IMeal[] }) {
-    const [quantities, setQuantities] = useState<Record<string, number>>({});
 
-    const increment = (id: string) =>
-        setQuantities(prev => ({...prev, [id]: (prev[id] ?? 0) + 1}));
+    const dispatch = useDispatch();
+    const cartData = useSelector((state: RootState) => state.cart.cartData);
 
-    const decrement = (id: string) =>
-        setQuantities(prev => ({...prev, [id]: Math.max(0, (prev[id] ?? 0) - 1)}));
+    const qty = (id: string) => cartData.find(m => m._id === id)?.quantity ?? 0;
 
-    const qty = (id: string) => quantities[id] ?? 0;
+    const increment = (meal: IMeal) =>
+        dispatch(addMealToCart({
+            _id: meal._id?.toString() || "",
+            name: meal.name,
+            category: meal.category,
+            price: meal.price,
+            size: meal.size,
+            image: meal.image,
+        }));
+
+    const decrement = (id: string) => dispatch(removeMealFromCart(id));
+
+
+
 
     if (!meals.length) {
         return (
@@ -71,11 +85,11 @@ function MealCard({meals}: { meals: IMeal[] }) {
                                 className="pointer-events-none absolute inset-0 bg-linear-to-t from-card via-card/20 to-transparent"/>
 
                             <span
-                                className="absolute top-2.5 left-2.5 rounded-full border border-white/10 bg-black/50 px-2 py-0.5 text-[10px] font-semibold text-white/80 backdrop-blur-md z-[98]">
+                                className="absolute top-2.5 left-2.5 rounded-full border border-white/10 z-10 bg-black/50 px-2 py-0.5 text-[10px] font-semibold text-white/80 backdrop-blur-md ">
                                 {meal.size == "NA" ? "Chef's Special" : meal.size}
                             </span>
                             <span
-                                className="absolute top-2.5 right-2.5 flex items-center gap-0.5 rounded-full border border-primary/20 bg-black/50 px-2 py-0.5 text-[10px] font-semibold text-primary backdrop-blur-md">
+                                className="absolute top-2.5 right-2.5 flex items-center gap-0.5 rounded-full border border-primary/20  bg-black/50 px-2 py-0.5 text-[10px] font-semibold text-primary backdrop-blur-md">
                                 <Star size={9} className="fill-primary text-primary"/>
                                 4.5
                             </span>
@@ -98,7 +112,7 @@ function MealCard({meals}: { meals: IMeal[] }) {
 
                                 {count === 0 ? (
                                     <button
-                                        onClick={() => increment(id)}
+                                        onClick={() => increment(meal)}
                                         className="flex items-center gap-1.5 rounded-full bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground transition-all hover:brightness-110 active:scale-95"
                                     >
                                         <Plus size={12}/>
@@ -118,7 +132,7 @@ function MealCard({meals}: { meals: IMeal[] }) {
                                             {count}
                                         </span>
                                         <button
-                                            onClick={() => increment(id)}
+                                            onClick={() => increment(meal)}
                                             className="flex h-5 w-5 items-center justify-center rounded-full text-foreground transition-all hover:bg-white/10 active:scale-90"
                                         >
                                             <Plus size={11}/>

@@ -4,6 +4,7 @@
     <files>
       <node color="4" path="$PROJECT_DIR$/src/app/(BACK)" />
       <node color="7" path="$PROJECT_DIR$/src/app/(FRONT)" />
+      <node color="11" path="$PROJECT_DIR$/src/app/(FRONT)/REDUX" />
     </files>
     <colors>
       <color id="1" value="#4f060d" name="Color 1" enabled="true" />
@@ -16,6 +17,7 @@
       <color id="8" value="#12505dc3" name="Color 8" enabled="true" />
       <color id="9" value="#97f18575" name="Color 9" enabled="true" />
       <color id="10" value="#782ff175" name="Color 10" enabled="true" />
+      <color id="11" value="#1d1440f2" name="Color 11" enabled="true" />
     </colors>
     <option name="marksForCollapsedHighlights" value="Dots" />
   </component>
