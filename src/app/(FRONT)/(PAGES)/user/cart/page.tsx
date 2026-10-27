@@ -10,6 +10,7 @@ import {addMealToCart, removeMealFromCart} from "@/app/(FRONT)/REDUX/cartSlice";
 
 function CartPage() {
     const {cartData} = useSelector((state: RootState) => state.cart);
+
     const dispatch = useDispatch();
 
     const totalItems = useMemo(

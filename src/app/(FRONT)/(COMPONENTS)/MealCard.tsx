@@ -8,9 +8,9 @@ import {addMealToCart, removeMealFromCart} from "@/app/(FRONT)/REDUX/cartSlice";
 import {RootState} from "@/app/(FRONT)/REDUX/store";
 
 function MealCard({meals}: { meals: IMeal[] }) {
-
     const dispatch = useDispatch();
     const cartData = useSelector((state: RootState) => state.cart.cartData);
+    const [selectedImages, setSelectedImages] = React.useState<Record<string, number>>({});
 
     const qty = (id: string) => cartData.find(m => m._id === id)?.quantity ?? 0;
 
@@ -26,7 +26,9 @@ function MealCard({meals}: { meals: IMeal[] }) {
 
     const decrement = (id: string) => dispatch(removeMealFromCart(id));
 
-
+    const handleImageClick = (mealId: string, imageIndex: number) => {
+        setSelectedImages(prev => ({ ...prev, [mealId]: imageIndex }));
+    };
 
 
     if (!meals.length) {
@@ -44,7 +46,8 @@ function MealCard({meals}: { meals: IMeal[] }) {
             {meals.map((meal) => {
                 const id = meal._id?.toString() || '';
                 const count = qty(id);
-                const img = meal.image[0];
+                const selectedIndex = selectedImages[id] ?? 0;
+                const img = meal.image[selectedIndex];
 
                 return (
                     <article
@@ -68,15 +71,15 @@ function MealCard({meals}: { meals: IMeal[] }) {
 
                             {meal.image && meal.image.length > 1 && (
                                 <div className="absolute bottom-0 right-2 flex items-center gap-0.5 h-8 z-100">
-                                    {meal.image.slice(1).map((g, i) => (
+                                    {meal.image.map((g, i) => (
                                         <Image
                                             key={i}
                                             src={g}
                                             alt={`${meal.name} thumbnail ${i + 1}`}
                                             width={32}
                                             height={32}
-                                            className="w-8 h-8 rounded-md border-2 border-white/20 object-cover "
-
+                                            className={`w-8 h-8 rounded-md border-2 object-cover cursor-pointer ${selectedIndex === i ? 'border-primary' : 'border-white/20'}`}
+                                            onClick={() => handleImageClick(id, i)}
                                         />
                                     ))}
                                 </div>
