@@ -12,10 +12,16 @@ export interface ICartItem {
 
 interface ICartSlice {
     cartData: ICartItem[];
+    subTotal: number;
+    deliverFee: number;
+    total: number;
 }
 
 const initialState: ICartSlice = {
     cartData: [],
+    subTotal: 0,
+    deliverFee: 0,
+    total: 0,
 };
 
 export const cartSlice = createSlice({
@@ -30,6 +36,7 @@ export const cartSlice = createSlice({
                     m._id === action.payload._id ? {...m, quantity: m.quantity + 1} : m
                 )
                 : [...state.cartData, {...action.payload, quantity: 1}];
+            cartSlice.caseReducers.calculateTotal(state);
         },
 
         // decreases quantity, and removes the meal when it reaches 0
@@ -37,7 +44,13 @@ export const cartSlice = createSlice({
             state.cartData = state.cartData
                 .map(m => m._id === action.payload ? {...m, quantity: m.quantity - 1} : m)
                 .filter(m => m.quantity > 0);
+            cartSlice.caseReducers.calculateTotal(state);
         },
+        calculateTotal:(state)=>{
+           state.subTotal = state.cartData.reduce((total, item) => total + item.price * item.quantity, 0);
+           state.deliverFee=state.subTotal > 20 ? 0 : 5;
+           state.total = (state.subTotal + state.deliverFee)*1.13;
+        }
     },
 });
 

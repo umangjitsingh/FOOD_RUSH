@@ -15,7 +15,6 @@ if(!global.box){
 
 const connectDb=async()=>{
     if(global.box.conn){
-        console.log("Connecting to DB from box");
         return global.box.conn
     }
     if(!global.box.promise){

@@ -9,16 +9,12 @@ import {RootState} from "@/app/(FRONT)/REDUX/store";
 import {addMealToCart, removeMealFromCart} from "@/app/(FRONT)/REDUX/cartSlice";
 
 function CartPage() {
-    const {cartData} = useSelector((state: RootState) => state.cart);
+    const {cartData, subTotal, deliverFee, total} = useSelector((state: RootState) => state.cart);
 
     const dispatch = useDispatch();
 
     const totalItems = useMemo(
         () => cartData.reduce((sum, item) => sum + item.quantity, 0),
-        [cartData]
-    );
-    const subtotal = useMemo(
-        () => cartData.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0),
         [cartData]
     );
 
@@ -154,20 +150,28 @@ function CartPage() {
                                 </div>
                                 <div className="flex justify-between text-muted-foreground">
                                     <span>Subtotal</span>
-                                    <span className="tabular-nums">${subtotal.toFixed(2)}</span>
+                                    <span className="tabular-nums">${subTotal.toFixed(2)}</span>
+                                </div>
+                                <div className="flex justify-between text-muted-foreground">
+                                    <span>Delivery Fee</span>
+                                    <span className="tabular-nums">${deliverFee.toFixed(2)}</span>
+                                </div>
+                                <div className="flex justify-between text-muted-foreground">
+                                    <span>Taxes(13%)</span>
+                                    <span className="tabular-nums">${((subTotal+deliverFee)*0.13).toFixed(2)}</span>
                                 </div>
                                 <div className="my-1 border-t border-dashed border-border"/>
                                 <div className="flex justify-between text-base font-bold">
                                     <span>Total</span>
-                                    <span className="tabular-nums text-primary">${subtotal.toFixed(2)}</span>
+                                    <span className="tabular-nums text-primary">${total.toFixed(2)}</span>
                                 </div>
                             </div>
 
-                            <button
-                                className="mt-6 w-full rounded-full bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition-all hover:brightness-110 active:scale-95"
+                            <Link href="/user/cart/checkout"
+                                className="mt-6 block text-center w-full rounded-full bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition-all hover:brightness-110 active:scale-95"
                             >
                                 Proceed to Checkout
-                            </button>
+                            </Link>
                             <Link
                                 href="/"
                                 className="mt-3 block text-center text-xs text-muted-foreground transition-colors hover:text-foreground"
