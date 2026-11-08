@@ -26,6 +26,7 @@
     "cloudinary": "^2.11.0",
     "clsx": "^2.1.1",
     "leaflet": "^1.9.4",
+    "leaflet-geosearch": "^5.2.0",
     "lucide-react": "^1.41.0",
     "mongoose": "^9.9.4",
     "motion": "^13.4.0",

@@ -1,5 +1,5 @@
 "use client"
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {Circle, MapContainer, Marker, Popup, TileLayer, useMap} from "react-leaflet";
 import L, {LatLngExpression} from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -30,6 +30,12 @@ type MapViewProps = {
 };
 
 function MapView({position, accuracy, onPositionChange}: MapViewProps) {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     if (!position) {
         return (
             <div className="w-full h-full flex items-center justify-center text-muted-foreground"
@@ -39,9 +45,18 @@ function MapView({position, accuracy, onPositionChange}: MapViewProps) {
         );
     }
 
+    if (!mounted) {
+        return (
+            <div className="w-full h-full flex items-center justify-center text-muted-foreground"
+                 style={{height: "384px"}}>
+                Loading map...
+            </div>
+        );
+    }
+
     return (
         <div style={{height: "384px", width: "100%"}}>
-            <MapContainer center={position as LatLngExpression} zoom={16} scrollWheelZoom={true}
+            <MapContainer key="delivery-map" center={position as LatLngExpression} zoom={16} scrollWheelZoom={true}
                           style={{height: "100%", width: "100%"}}>
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
