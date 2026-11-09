@@ -10,6 +10,7 @@ const dmSerif = DM_Serif_Display({ subsets: ['latin'], weight: '400', variable: 
 export const metadata: Metadata = {
   title: 'savor. — Good food, closer than you think',
   description: 'Discover the best local dishes, delivered warm and wonderfully fast.',
+  viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
 }
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

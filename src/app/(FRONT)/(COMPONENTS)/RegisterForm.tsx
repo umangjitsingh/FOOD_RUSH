@@ -51,7 +51,7 @@ function RegisterForm({ whatStep }: { whatStep: (step: number) => void }) {
             <button type="button" className="mb-6 text-sm text-muted-foreground transition-colors hover:text-primary" onClick={() => whatStep(1)}>
                 ← Back
             </button>
-            <form className="flex flex-col gap-3">
+            <form className="flex flex-col gap-3" onSubmit={handleRegister}>
                 <div className="relative">
                     <User className="absolute top-1/2 left-4 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                     <input className="input-field" placeholder="Name" value={name} onChange={(e) => setName(e.target.value)} />
@@ -69,9 +69,9 @@ function RegisterForm({ whatStep }: { whatStep: (step: number) => void }) {
                 </div>
 
                 <button
+                    type="submit"
                     disabled={!isValid}
                     className={clsx("btn-primary mt-2 w-full", !isValid && "cursor-not-allowed opacity-40")}
-                    onClick={handleRegister}
                 >
                     {loading ? <Loader2 size={17} className="animate-spin" /> : <span>Register now</span>}
                     <ArrowRight size={16} />

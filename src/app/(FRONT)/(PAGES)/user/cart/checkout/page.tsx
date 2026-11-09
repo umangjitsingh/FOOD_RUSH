@@ -133,87 +133,87 @@ function Checkout() {
                 console.error("Geolocation error:", error);
                 setPosition(fallback);
             },
-            {enableHighAccuracy: true, maximumAge: 0, timeout: 10000}
+            {enableHighAccuracy: true, maximumAge: 0, timeout: 15000}
         );
     }, []);
 
     return (
-        <div className="mx-auto mt-8 mb-24 w-[95%] sm:w-[90%] lg:w-[85%] xl:w-[80%]">
+        <div className="mx-auto mt-6 sm:mt-8 mb-20 sm:mb-24 w-[95%] sm:w-[90%] lg:w-[85%] xl:w-[80%]">
 
             <Link href="/user/cart"
-                  className="mb-8 inline-flex items-center gap-2 rounded-full border border-border/50 bg-card/80 backdrop-blur-sm px-5 py-2.5 text-sm font-medium text-foreground transition-all hover:border-primary/50 hover:bg-card hover:shadow-md">
-                <ArrowLeft size={16} strokeWidth={2.2} aria-hidden="true"/>
+                  className="mb-6 sm:mb-8 inline-flex items-center gap-2 rounded-full border border-border/50 bg-card/80 backdrop-blur-sm px-4 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-medium text-foreground transition-all hover:border-primary/50 hover:bg-card hover:shadow-md">
+                <ArrowLeft size={14}  strokeWidth={2.2} aria-hidden="true"/>
                 <span className="hidden sm:inline">Back to Cart</span>
             </Link>
 
             <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 0.4}}>
 
-                <div className="mb-8 flex items-end justify-between gap-4">
-                    <h1 className="flex items-center gap-3 text-3xl font-bold tracking-tight md:text-4xl">
+                <div className="mb-6 sm:mb-8 flex items-end justify-between gap-4">
+                    <h1 className="flex items-center gap-3 text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
                         Checkout
                     </h1>
                 </div>
 
-                <div className="grid lg:grid-cols-2 gap-6">
+                <div className="grid lg:grid-cols-2 gap-4 sm:gap-6">
                     <motion.div
                         initial={{opacity: 0, x: -10, y: -10}}
                         animate={{opacity: 1, x: 0, y: 0}}
                         transition={{duration: 0.8}}
-                        className="rounded-2xl bg-gradient-to-br from-card to-card/50 backdrop-blur-sm shadow-lg shadow-primary/5 border border-border/50 p-6 md:p-8">
+                        className="rounded-2xl bg-linear-to-br from-card to-card/50 backdrop-blur-sm shadow-lg shadow-primary/5 border border-border/50 p-4 sm:p-6 md:p-8">
 
-                        <h2 className="flex items-center gap-3 text-xl font-semibold md:text-2xl mb-6">
-                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                                <MapPin className="h-5 w-5"/>
+                        <h2 className="flex items-center gap-3 text-lg sm:text-xl md:text-2xl font-semibold mb-4 sm:mb-6">
+                            <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                                <MapPin className="h-4 w-4 sm:h-5 sm:w-5"/>
                             </div>
                             Delivery Details
                         </h2>
 
-                        <div className="space-y-4">
+                        <div className="space-y-3 sm:space-y-4">
                             <div className="relative">
-                                <User2 className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18}/>
+                                <User2 className="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={14} />
                                 <input type="text" placeholder="Name" value={userData?.user?.name || ""} readOnly
-                                       className="w-full rounded-xl border border-border/50 bg-muted/30 py-3 pl-11 pr-4 text-sm placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 capitalize transition-all"/>
+                                       className="w-full rounded-xl border border-border/50 bg-muted/30 py-2.5 sm:py-3 pl-10 sm:pl-11 pr-4 text-xs sm:text-sm placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 capitalize transition-all"/>
                             </div>
 
                             <div className="relative">
-                                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18}/>
+                                <Phone className="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={14}/>
                                 <input type="text" placeholder="Phone" value={addressDetails.mobile}
                                        onChange={(e) => setAddressDetails({...addressDetails, mobile: e.target.value})}
-                                       className="w-full rounded-xl border border-border/50 bg-background py-3 pl-11 pr-4 text-sm placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"/>
+                                       className="w-full rounded-xl border border-border/50 bg-background py-2.5 sm:py-3 pl-10 sm:pl-11 pr-4 text-xs sm:text-sm placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"/>
                             </div>
 
                             <div className="relative">
-                                <Home className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18}/>
+                                <Home className="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={14} />
                                 <input type="text" placeholder="Full address" value={addressDetails.fullAddress}
                                        onChange={(e) => setAddressDetails({...addressDetails, fullAddress: e.target.value})}
-                                       className="w-full rounded-xl border border-border/50 bg-background py-3 pl-11 pr-4 text-sm placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"/>
+                                       className="w-full rounded-xl border border-border/50 bg-background py-2.5 sm:py-3 pl-10 sm:pl-11 pr-4 text-xs sm:text-sm placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"/>
                             </div>
 
-                            <div className="grid grid-cols-3 gap-3">
+                            <div className="grid grid-cols-3 gap-2 sm:gap-3">
                                 <div className="relative">
-                                    <Building className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16}/>
+                                    <Building className="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={14} />
                                     <input type="text" placeholder="City" value={addressDetails.city}
                                            onChange={(e) => setAddressDetails({...addressDetails, city: e.target.value})}
-                                           className="w-full rounded-xl border border-border/50 bg-background py-3 pl-10 pr-3 text-sm placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"/>
+                                           className="w-full rounded-xl border border-border/50 bg-background py-2.5 sm:py-3 pl-9 sm:pl-10 pr-2 sm:pr-3 text-xs sm:text-sm placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"/>
                                 </div>
 
                                 <div className="relative">
-                                    <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16}/>
+                                    <Building2 className="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={14} />
                                     <input type="text" placeholder="State" value={addressDetails.state}
                                            onChange={(e) => setAddressDetails({...addressDetails, state: e.target.value})}
-                                           className="w-full rounded-xl border border-border/50 bg-background py-3 pl-10 pr-3 text-sm placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"/>
+                                           className="w-full rounded-xl border border-border/50 bg-background py-2.5 sm:py-3 pl-9 sm:pl-10 pr-2 sm:pr-3 text-xs sm:text-sm placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"/>
                                 </div>
 
                                 <div className="relative">
-                                    <Bookmark className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={16}/>
+                                    <Bookmark className="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={14} />
                                     <input type="text" placeholder="Pincode" value={addressDetails.pincode}
                                            onChange={(e) => setAddressDetails({...addressDetails, pincode: e.target.value})}
-                                           className="w-full rounded-xl border border-border/50 bg-background py-3 pl-10 pr-3 text-sm placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"/>
+                                           className="w-full rounded-xl border border-border/50 bg-background py-2.5 sm:py-3 pl-9 sm:pl-10 pr-2 sm:pr-3 text-xs sm:text-sm placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"/>
                                 </div>
                             </div>
 
                             <div className="relative">
-                                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18}/>
+                                <Search className="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={14} />
                                 <input type="text" placeholder="Search city or area..."
                                        value={searchText}
                                        onChange={(e) => setSearchText(e.target.value)}
@@ -223,12 +223,12 @@ function Checkout() {
                                                handleSearch();
                                            }
                                            }}
-                                           className="w-full rounded-xl border border-border/50 bg-background py-3 pl-11 pr-28 text-sm placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"/>
+                                           className="w-full rounded-xl border border-border/50 bg-background py-2.5 sm:py-3 pl-10 sm:pl-11 pr-24 sm:pr-28 text-xs sm:text-sm placeholder:text-muted-foreground/50 focus:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"/>
                                 <button
                                     type="button"
                                     onClick={handleSearch}
                                     disabled={searching}
-                                    className="absolute right-1.5 top-1.5 rounded-lg bg-primary px-5 py-2 text-sm font-medium text-primary-foreground transition-all hover:bg-primary/90 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
+                                    className="absolute right-1.5 top-1.5 rounded-lg bg-primary px-3 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-primary-foreground transition-all hover:bg-primary/90 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed">
                                     {searching ? "Searching..." : "Search"}
                                 </button>
                             </div>
@@ -239,41 +239,41 @@ function Checkout() {
                         initial={{opacity: 0, x: -10, y: -10}}
                         animate={{opacity: 1, x: 0, y: 0}}
                         transition={{duration: 0.8}}
-                        className="rounded-2xl bg-gradient-to-br from-card to-card/50 backdrop-blur-sm shadow-lg shadow-primary/5 border border-border/50 p-6 md:p-8">
+                        className="rounded-2xl bg-linear-to-br from-card to-card/50 backdrop-blur-sm shadow-lg shadow-primary/5 border border-border/50 p-4 sm:p-6 md:p-8">
 
-                        <h2 className="flex items-center gap-3 text-xl font-semibold md:text-2xl mb-6">
-                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                                <CreditCard className="h-5 w-5"/>
+                        <h2 className="flex items-center gap-3 text-lg sm:text-xl md:text-2xl font-semibold mb-4 sm:mb-6">
+                            <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                                <CreditCard className="h-4 w-4 sm:h-5 sm:w-5"/>
                             </div>
                             Payment Method
                         </h2>
 
-                        <div className="space-y-3 mb-6">
+                        <div className="space-y-2.5 sm:space-y-3 mb-4 sm:mb-6">
                           <button 
-                              className={`relative w-full flex items-center gap-4 rounded-xl border p-4 text-left transition-all hover:border-primary/50 hover:bg-primary/5 ${paymentMethod === 'stripe' ? 'border-primary bg-primary/5 ring-2 ring-primary/20' : 'border-border/50 bg-background'}`}
+                              className={`relative w-full flex items-center gap-3 sm:gap-4 rounded-xl border p-3 sm:p-4 text-left transition-all hover:border-primary/50 hover:bg-primary/5 ${paymentMethod === 'stripe' ? 'border-primary bg-primary/5 ring-2 ring-primary/20' : 'border-border/50 bg-background'}`}
                               onClick={() => setPaymentMethod('stripe')}>
-                              <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${paymentMethod === 'stripe' ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}>
-                                  <CreditCardIcon size={20}/>
+                              <div className={`flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-lg ${paymentMethod === 'stripe' ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}>
+                                  <CreditCardIcon size={16} />
                               </div>
                               <div>
-                                  <p className="font-medium">Pay Online</p>
-                                  <p className="text-xs text-muted-foreground">Secure payment via Stripe</p>
+                                  <p className="text-sm sm:text-base font-medium">Pay Online</p>
+                                  <p className="text-[10px] sm:text-xs text-muted-foreground">Secure payment via Stripe</p>
                               </div>
                           </button>
                             <button 
-                                className={`relative w-full flex items-center gap-4 rounded-xl border p-4 text-left transition-all hover:border-primary/50 hover:bg-primary/5 ${paymentMethod === 'cod' ? 'border-primary bg-primary/5 ring-2 ring-primary/20' : 'border-border/50 bg-background'}`}
+                                className={`relative w-full flex items-center gap-3 sm:gap-4 rounded-xl border p-3 sm:p-4 text-left transition-all hover:border-primary/50 hover:bg-primary/5 ${paymentMethod === 'cod' ? 'border-primary bg-primary/5 ring-2 ring-primary/20' : 'border-border/50 bg-background'}`}
                                 onClick={() => setPaymentMethod('cod')}>
-                                <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${paymentMethod === 'cod' ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}>
-                                    <Footprints size={20}/>
+                                <div className={`flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-lg ${paymentMethod === 'cod' ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'}`}>
+                                    <Footprints size={16}/>
                                 </div>
                                 <div>
-                                    <p className="font-medium">Pay On Delivery</p>
-                                    <p className="text-xs text-muted-foreground">Cash when you receive</p>
+                                    <p className="text-sm sm:text-base font-medium">Pay On Delivery</p>
+                                    <p className="text-[10px] sm:text-xs text-muted-foreground">Cash when you receive</p>
                                 </div>
                             </button>
 
-                            <div className="rounded-xl bg-muted/30 p-4">
-                                <div className="flex flex-col gap-3 text-sm">
+                            <div className="rounded-xl bg-muted/30 p-3 sm:p-4">
+                                <div className="flex flex-col gap-2 sm:gap-3 text-xs sm:text-sm">
 
                                     <div className="flex justify-between text-muted-foreground">
                                         <span>Subtotal</span>
@@ -287,16 +287,16 @@ function Checkout() {
                                         <span>Taxes (13%)</span>
                                         <span className="tabular-nums font-medium">${((subTotal+deliverFee)*0.13).toFixed(2)}</span>
                                     </div>
-                                    <div className="my-2 border-t border-border/50"/>
-                                    <div className="flex justify-between text-lg font-bold">
+                                    <div className="my-1.5 sm:my-2 border-t border-border/50"/>
+                                    <div className="flex justify-between text-base sm:text-lg font-bold">
                                         <span>Total</span>
                                         <span className="tabular-nums text-primary">${total.toFixed(2)}</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <Link href="/user/cart/checkout"
-                                  className="mt-6 block w-full rounded-xl bg-primary px-6 py-4 text-center text-base font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98]"
+                            <Link href="/"
+                                  className="mt-4 sm:mt-6 block w-full rounded-xl bg-primary px-4 sm:px-6 py-3 sm:py-4 text-center text-sm sm:text-base font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:shadow-xl hover:shadow-primary/30 active:scale-[0.98]"
                             >
                                 Place Order
                             </Link>
@@ -308,7 +308,7 @@ function Checkout() {
 
                 </div>
 
-                <div className="relative mt-8 h-[450px] rounded-2xl overflow-hidden border border-border/50 shadow-lg shadow-primary/5">
+                <div className="relative mt-6 sm:mt-8 h-88 sm:h-112 rounded-2xl overflow-hidden border border-border/50 shadow-lg shadow-primary/5">
                     <MapView position={position} accuracy={accuracy} onPositionChange={handlePositionChange}/>
                 </div>
 

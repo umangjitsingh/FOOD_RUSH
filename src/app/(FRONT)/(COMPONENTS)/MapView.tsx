@@ -56,9 +56,9 @@ function MapView({position, accuracy, onPositionChange}: MapViewProps) {
 
     return (
         <div style={{height: "384px", width: "100%"}}>
-            <MapContainer key="delivery-map" center={position as LatLngExpression} zoom={16} scrollWheelZoom={true}
+            <MapContainer key="delivery-map" center={position as LatLngExpression} zoom={18} scrollWheelZoom={true}
                           style={{height: "100%", width: "100%"}}>
-                <TileLayer
+                <TileLayer key={"tile"}
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />

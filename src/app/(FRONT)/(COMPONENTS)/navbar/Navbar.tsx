@@ -42,7 +42,7 @@ export function Navbar({ user }: { user: IUser }) {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -70 }}
                 transition={{ type: "spring", stiffness: 400 }}
-                className="fixed top-0 left-0 z-40 h-full w-[78%] max-w-sm border-r border-border bg-[#0c0e16]/95 backdrop-blur-2xl"
+                className="fixed top-0 left-0 z-40 h-full w-[85%] max-w-sm border-r border-border bg-[#0c0e16]/95 backdrop-blur-2xl"
             >
                 <div className="px-5 py-24 text-white">
                     <div className="flex w-full flex-col items-start gap-2">
